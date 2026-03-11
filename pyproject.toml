@@ -1,0 +1,30 @@
+[project]
+name = "calendesk-mcp-server"
+version = "0.1.0"
+description = "MCP server for Calendesk — connect your booking platform to Claude Desktop, Claude Code, and other AI tools"
+readme = "README.md"
+requires-python = ">=3.10"
+license = {text = "MIT"}
+authors = [
+    { name = "Calendesk", email = "support@calendesk.com" },
+]
+dependencies = [
+    "mcp[cli]>=1.7.1",
+    "httpx>=0.28.0",
+    "python-dotenv>=1.0.0",
+]
+
+[project.urls]
+Homepage = "https://calendesk.com"
+Repository = "https://github.com/calendesk/calendesk-mcp-server"
+Issues = "https://github.com/calendesk/calendesk-mcp-server/issues"
+
+[project.scripts]
+calendesk-mcp-server = "calendesk_mcp.server:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["calendesk_mcp"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
