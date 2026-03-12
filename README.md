@@ -1,10 +1,10 @@
 # Calendesk MCP Server
 
-Connect your [Calendesk](https://calendesk.com) booking platform to Claude, Claude Desktop, Claude Code, and other MCP-compatible AI tools.
+Connect your [Calendesk](https://calendesk.com) booking platform to Claude, Claude Desktop, Claude Code, and other MCP-compatible AI tools. Manage bookings, customers, employees, services, and view business analytics — all through natural language.
 
 ## Prerequisites
 
-- A Calendesk account
+- A [Calendesk](https://calendesk.com) account
 
 ## Setup
 
@@ -128,6 +128,84 @@ pip install calendesk-mcp-server
 - `get_me` - Get current user profile and employee information
 - `send_notification` - Send email, SMS, or push notification
 
+## Examples
+
+### Check today's schedule
+
+**You:** "What does my schedule look like today?"
+
+The assistant calls `list_bookings` with today's date and returns:
+
+> You have 4 appointments today:
+>
+> | Time | Service | Customer | Status |
+> |------|---------|----------|--------|
+> | 09:00–10:00 | Haircut | Maria Kowalska | Approved |
+> | 10:30–11:30 | Hair Coloring | Anna Wiśniewska | Approved |
+> | 13:00–14:00 | Haircut | Jan Nowak | Approved |
+> | 15:00–16:00 | Beard Trim | Tomasz Zieliński | Approved |
+
+### Find available slots and book an appointment
+
+**You:** "When can I schedule a 60-minute consultation with Dr. Kowalski next week?"
+
+The assistant calls `get_available_slots` for the service and employee, then responds:
+
+> Dr. Kowalski has these openings next week:
+>
+> **Monday:** 09:00, 11:00, 14:00
+> **Tuesday:** 10:00, 13:00, 15:00
+> **Thursday:** 09:00, 11:00
+>
+> Would you like me to book one of these?
+
+**You:** "Book Monday at 11:00 for customer anna@example.com"
+
+The assistant calls `search_users` to find the customer, then `check_event_overlaps` to verify no conflicts, and finally `create_booking`:
+
+> Booking confirmed:
+> - **Service:** Consultation (60 min)
+> - **Employee:** Dr. Kowalski
+> - **Customer:** Anna Wiśniewska (anna@example.com)
+> - **When:** Monday, March 17 at 11:00–12:00
+> - **Booking ID:** #4521
+
+### View business performance
+
+**You:** "How did the business do last month compared to the month before?"
+
+The assistant calls `get_dashboard_stats` with the date range:
+
+> **February 2026 vs January 2026:**
+>
+> | Metric | February | Change |
+> |--------|----------|--------|
+> | Revenue | €12 500 | +8.5% |
+> | Bookings | 285 | +12 |
+> | New customers | 18 | +5 |
+> | Cancellation rate | 3.5% | −0.8pp |
+>
+> Revenue is trending up, driven mainly by an increase in Hair Coloring bookings (+22%).
+
+### Search for a customer
+
+**You:** "Find me the contact info for customer Kowalska"
+
+The assistant calls `search_users`:
+
+> Found 2 matches:
+>
+> 1. **Maria Kowalska** — maria@example.com, +48 512 345 678 (last visit: March 5)
+> 2. **Ewa Kowalska** — ewa.k@example.com, +48 601 234 567 (last visit: February 12)
+
+### Send a notification
+
+**You:** "Send Maria Kowalska an email reminder about her appointment tomorrow"
+
+The assistant calls `send_notification`:
+
+> Email sent to Maria Kowalska (maria@example.com) with a reminder about her Haircut appointment tomorrow at 09:00.
+
 ## Environment Variables (STDIO mode only)
 
 | Variable | Required | Description |
@@ -160,3 +238,11 @@ pip install calendesk-mcp-server
    mcp dev calendesk_mcp/server.py:mcp
    ```
    Opens a web UI at `http://localhost:6274` where you can test tools interactively.
+
+## Privacy Policy
+
+[Calendesk Privacy Policy](https://calendesk.com/privacy-policy)
+
+## Support
+
+For questions or issues with the MCP server integration, contact us at **support@calendesk.com**.
