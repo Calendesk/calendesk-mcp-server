@@ -109,13 +109,12 @@ pip install calendesk-mcp-server
 - `list_user_groups` - Get all customer groups
 
 ### Analytics & Statistics
-- `get_statistics` - Get business statistics (booking counts, revenue)
 - `get_dashboard_stats` - Get dashboard KPIs (revenue, bookings, customers, cancellations)
 - `get_revenue_report` - Get revenue analysis with breakdown by source
 - `get_booking_analytics` - Get booking analytics by status, trends, and service
 - `get_employee_performance` - Get staff performance comparison
 - `get_service_analytics` - Get service popularity metrics
-- `get_customer_insights` - Get customer analytics and segments
+- `get_customer_insights` - Get customer analytics and segments (first_time, came_back, loyal)
 - `get_booking_patterns` - Get time-based booking patterns and peak hours
 - `get_payment_analytics` - Get payment and transaction analytics
 - `get_subscription_analytics` - Get subscription metrics and renewal rates
