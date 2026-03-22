@@ -75,14 +75,18 @@ pip install calendesk-mcp-server
 
 ## Supported Tools
 
-### Bookings
-- `list_bookings` - List bookings/appointments with optional filters
+### Events & Bookings
+- `list_events` - List calendar events (bookings, blocks/vacation, group bookings) with filters
 - `get_booking` - Get details of a specific booking by ID
 - `create_booking` - Create a new booking/appointment
 - `update_booking` - Update an existing booking
 - `delete_booking` - Delete a booking
 - `get_group_booking` - Get details of a group booking
 - `check_event_overlaps` - Check for scheduling conflicts
+- `get_unavailable_slot` - Get details of a block/vacation slot
+- `create_unavailable_slot` - Create a block/vacation for an employee
+- `update_unavailable_slot` - Update a block/vacation slot
+- `delete_unavailable_slot` - Delete a block/vacation slot
 
 ### Customers
 - `search_users` - Search customers by name, email, or phone
@@ -133,7 +137,7 @@ pip install calendesk-mcp-server
 
 **You:** "What does my schedule look like today?"
 
-The assistant calls `list_bookings` with today's date and returns:
+The assistant calls `list_events` with today's date and returns:
 
 > You have 4 appointments today:
 >
