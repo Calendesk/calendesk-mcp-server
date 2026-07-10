@@ -1,6 +1,6 @@
 # Calendesk MCP Server
 
-Connect your [Calendesk](https://calendesk.com) booking platform to Claude, Claude Desktop, Claude Code, and other MCP-compatible AI tools. Manage bookings, customers, employees, services, and view business analytics — all through natural language.
+Connect your [Calendesk](https://calendesk.com) booking platform to Claude, Claude Desktop, Claude Code, and other MCP-compatible AI tools. Manage bookings, customers, employees, services, and view business analytics — all through natural language. 32 tools, OAuth sign-in, no data leaves your Calendesk account.
 
 ## Prerequisites
 
@@ -16,9 +16,9 @@ No installation or API keys needed. Uses OAuth for secure authentication.
 2. Click **Add custom connector**
 3. Enter:
    - **Name:** Calendesk
-   - **Remote MCP server URL:** `https://mcp.calendesk.com`
+   - **Remote MCP server URL:** `https://claude.calendesk.com`
 4. Click **Add**
-5. Log in with your Calendesk credentials when prompted
+5. Log in with your Calendesk credentials when prompted (OAuth — no API keys to copy)
 
 ### Claude Desktop
 
@@ -107,10 +107,9 @@ pip install calendesk-mcp-server
 - `get_available_slots` - Get available time slots for booking
 - `list_availability` - Get availability schedules/working hours
 - `get_availability` - Get a specific availability schedule
-- `list_service_types` - Get all service categories
+- `list_service_types` - Get all service categories with their services
 - `list_products` - Get all products available for sale
 - `list_tags` - Get all available tags
-- `list_user_groups` - Get all customer groups
 
 ### Analytics & Statistics
 - `get_stats` - Business analytics: dashboard KPIs, revenue, bookings, employee performance, services, customers, patterns, payments, subscriptions, locations, products, forecast. Use `type` parameter to select report.
@@ -119,6 +118,25 @@ pip install calendesk-mcp-server
 - `get_settings` - Get business settings (timezone, currency, company info)
 - `get_me` - Get current user profile and employee information
 - `send_notification` - Send email, SMS, or push notification
+
+## Permissions and access
+
+Access mirrors your Calendesk role and permissions — the connector can only do what your own Calendesk user can do in the admin panel. An employee who connects their account sees exactly what they'd see when they log in, and nothing more.
+
+- **Read tools** (listing, viewing, search, analytics) run without extra prompts.
+- **Write tools** (create/update/delete bookings, customers, and blocks; send notifications) are marked as destructive, so Claude asks for your confirmation before each one.
+
+If your email belongs to more than one Calendesk company, you choose which one to connect during sign-in. Every tool call is scoped to that single tenant.
+
+## Data handling and security
+
+- **First-party only.** Every tool call goes to Calendesk's own API over HTTPS. No third-party services are involved, and no data is sold or shared.
+- **Your account data only.** The server reads and writes bookings, customers, employees, services, settings, and analytics within your Calendesk account. It never touches data outside your tenant.
+- **OAuth, no shared keys.** Claude.ai connects with OAuth 2.1 (authorization code + PKCE, with Dynamic Client Registration). Access and refresh tokens are issued by Calendesk and used only to call the Calendesk API on your behalf. Self-hosted setups use an API key and tenant id you generate yourself.
+- **No conversation storage.** The server processes each tool call and returns the result. It does not store, log, or forward your conversation, chat history, or messages.
+- **You stay in control.** Disconnect the connector at any time from Claude.ai Settings → Connectors, or revoke the API key in your Calendesk admin panel.
+
+Data collection and retention are described in the [Calendesk Privacy Policy](https://calendesk.com/privacy-policy).
 
 ## Examples
 
@@ -166,7 +184,7 @@ The assistant calls `search_users` to find the customer, then `check_event_overl
 
 **You:** "How did the business do last month compared to the month before?"
 
-The assistant calls `get_dashboard_stats` with the date range:
+The assistant calls `get_stats` (dashboard report) with the date range:
 
 > **February 2026 vs January 2026:**
 >
