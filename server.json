@@ -1,0 +1,18 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "com.calendesk/calendesk",
+  "title": "Calendesk",
+  "description": "Manage Calendesk bookings, customers, employees and services from AI assistants. OAuth sign-in.",
+  "version": "1.0.0",
+  "websiteUrl": "https://calendesk.com",
+  "repository": {
+    "url": "https://github.com/Calendesk/calendesk-mcp-server",
+    "source": "github"
+  },
+  "remotes": [
+    {
+      "type": "streamable-http",
+      "url": "https://mcp.calendesk.com"
+    }
+  ]
+}
